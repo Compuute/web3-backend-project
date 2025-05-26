@@ -18,6 +18,11 @@ app.get("/", (req, res) => {
   res.send("✅ Web3 Backend API running");
 });
 
+// Import routes
+const contractRoutes = require("./routes/contractRoutes");
+app.use("/api/contract", contractRoutes);
+
+
 // Start server
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`🚀 Server listening on port ${PORT}`));
