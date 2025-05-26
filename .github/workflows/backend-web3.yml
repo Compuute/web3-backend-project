@@ -1,0 +1,37 @@
+name: Web3 Backend CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+
+    defaults:
+      run:
+        working-directory: ./ # Projektroten
+
+    steps:
+      - name: 🔄 Checkout koden
+        uses: actions/checkout@v3
+
+      - name: 🟢 Installera Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+
+      - name: 📦 Installera dependencies (rot)
+        run: npm install
+
+      - name: 📦 Installera dependencies (backend)
+        run: npm install
+        working-directory: ./backend
+
+      - name: 🔨 Kompilera smarta kontrakt
+        run: npx hardhat compile
+
+      - name: 🧪 Testa smarta kontrakt
+        run: npx hardhat test

@@ -1,0 +1,10 @@
+# Blockchain config
+PRIVATE_KEY=your_private_wallet_key
+INFURA_API_KEY=your_infura_project_id
+CONTRACT_ADDRESS=deployed_smart_contract_address
+
+# Database config
+MONGO_URI=mongodb://localhost:27017/web3-backend
+
+# Server config
+PORT=5000
