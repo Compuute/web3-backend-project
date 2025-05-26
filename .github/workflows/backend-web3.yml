@@ -1,5 +1,6 @@
 name: Web3 Backend CI
 
+# 🔁 När ska pipelinen köras?
 on:
   push:
     branches: [main]
@@ -10,28 +11,33 @@ jobs:
   build-and-test:
     runs-on: ubuntu-latest
 
-    defaults:
-      run:
-        working-directory: ./ # Projektroten
-
     steps:
+      # 1️⃣ Checka ut koden från GitHub-repot
       - name: 🔄 Checkout koden
         uses: actions/checkout@v3
 
+      # 2️⃣ Installera rätt Node-version
       - name: 🟢 Installera Node.js
         uses: actions/setup-node@v3
         with:
           node-version: 18
 
-      - name: 📦 Installera dependencies (rot)
+      # 3️⃣ Installera projektets dependencies (rot, där hardhat finns)
+      - name: 📦 Installera root dependencies
         run: npm install
 
-      - name: 📦 Installera dependencies (backend)
-        run: npm install
-        working-directory: ./backend
+      # 4️⃣ Installera backend-API:t's egna dependencies
+      - name: 📦 Installera backend dependencies
+        run: |
+          cd backend
+          npm install
 
+      # 5️⃣ Kompilera smarta kontrakt (måste köras i rotmappen)
       - name: 🔨 Kompilera smarta kontrakt
-        run: npx hardhat compile
+        run: |
+          npx hardhat compile
 
+      # 6️⃣ Kör tester (t.ex. test/MyContract.test.js)
       - name: 🧪 Testa smarta kontrakt
-        run: npx hardhat test
+        run: |
+          npx hardhat test
