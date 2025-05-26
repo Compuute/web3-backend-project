@@ -21,16 +21,27 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: 18
+          cache: 'npm' # Cacha npm-moduler för snabbare körningar
 
       # 3️⃣ Installera projektets dependencies (rot, där hardhat finns)
       - name: 📦 Installera root dependencies
-        run: npm install
-
+        run: npm ci
+        # Använder npm ci för att installera exakt de versioner som anges i package-lock.json
+      #    Detta är snabbare och mer pålitligt för CI/CD än npm install
+      #    Om du använder yarn, byt ut npm ci mot yarn install
       # 4️⃣ Installera backend-API:t's egna dependencies
       - name: 📦 Installera backend dependencies
         run: |
           cd backend
-          npm install
+          npm ci
+        # Gå in i backend-mappen och installera dess dependencies
+
+      - name: Cache Hardhat compiler
+        uses: actions/cache@v3
+        with:
+          path: |
+            ~/.cache/hardhat-nodejs
+          key: ${{ runner.os }}-hardhat-${{ hashFiles('**/hardhat.config.js') }}
 
       # 5️⃣ Kompilera smarta kontrakt (måste köras i rotmappen)
       - name: 🔨 Kompilera smarta kontrakt
