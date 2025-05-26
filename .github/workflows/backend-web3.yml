@@ -48,7 +48,11 @@ jobs:
         run: |
           npx hardhat compile
 
-      # 6️⃣ Kör tester (t.ex. test/MyContract.test.js)
+      # 6️⃣ kontrollera kodstil med Prettier
+      - name: 📏 Kontrollera kodstil med Prettier
+        run: npm run format:check
+
+      # 7️⃣ Kör tester (t.ex. test/MyContract.test.js)
       - name: 🧪 Testa smarta kontrakt
         run: |
           npx hardhat test

@@ -1,8 +1,8 @@
 // backend/app.js
-require("dotenv").config();
-const express = require("express");
-const cors = require("cors");
-const connectDB = require("../config/db");
+require('dotenv').config();
+const express = require('express');
+const cors = require('cors');
+const connectDB = require('../config/db');
 
 const app = express();
 
@@ -14,14 +14,13 @@ app.use(express.json());
 connectDB();
 
 // API routes
-app.get("/", (req, res) => {
-  res.send("✅ Web3 Backend API running");
+app.get('/', (req, res) => {
+  res.send('✅ Web3 Backend API running');
 });
 
 // Import routes
-const contractRoutes = require("./routes/contractRoutes");
-app.use("/api/contract", contractRoutes);
-
+const contractRoutes = require('./routes/contractRoutes');
+app.use('/api/contract', contractRoutes);
 
 // Start server
 const PORT = process.env.PORT || 5000;

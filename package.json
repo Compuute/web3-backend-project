@@ -6,9 +6,12 @@
     "test": "test"
   },
   "scripts": {
-    "test": "npx hardhat test" ,
-    "prepare": "husky install",
+    "test": "npx hardhat test",
+    "postinstall": "husky install",
     "compile": "npx hardhat compile",
+    "lint:json": "jsonlint package.json",
+    "format": "prettier --write .",
+    "format:check": "prettier --check ."
   },
   "keywords": [],
   "author": "",
@@ -26,6 +29,8 @@
     "@commitlint/config-conventional": "^19.8.1",
     "@nomicfoundation/hardhat-toolbox": "^5.0.0",
     "hardhat": "^2.24.0",
-    "husky": "^9.1.7"
+    "husky": "^9.1.7",
+    "jsonlint": "^1.6.3",
+    "prettier": "^3.5.3"
   }
 }

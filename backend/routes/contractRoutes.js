@@ -1,4 +1,4 @@
-const web3Service = require("../services/web3Service");
+const web3Service = require('../services/web3Service');
 
 exports.getMessage = async (req, res) => {
   const msg = await web3Service.getMessage();
